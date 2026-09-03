@@ -25,3 +25,6 @@ dist-ssr
 
 # Salida de las pruebas de humo
 smoke/out
+
+# Cloudflare Wrangler
+.wrangler

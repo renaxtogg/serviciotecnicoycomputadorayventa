@@ -1,0 +1,14 @@
+{
+  // Configuración de despliegue en Cloudflare Workers (assets estáticos).
+  // El build de Vite deja el sitio en dist/ y este Worker lo sirve tal cual.
+  // No hay código de servidor: la demo es 100% cliente + localStorage.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "serviciotecnicoycomputadorayventa",
+  "compatibility_date": "2026-09-03",
+  "assets": {
+    "directory": "./dist",
+    // Devuelve index.html en cualquier ruta desconocida para que /panel/ordenes,
+    // /seguimiento, etc. funcionen al recargar o al entrar directo (SPA).
+    "not_found_handling": "single-page-application"
+  }
+}

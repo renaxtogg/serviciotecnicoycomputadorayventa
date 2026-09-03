@@ -29,7 +29,8 @@
     "oxlint": "^1.79.0",
     "tailwindcss": "^4.3.3",
     "typescript": "~6.0.2",
-    "vite": "^8.2.2"
+    "vite": "^8.2.2",
+    "wrangler": "^4.129.0"
   },
   "description": "Demostración comercial: sitio web + panel de gestión para servicio técnico y venta de celulares y computadoras"
 }

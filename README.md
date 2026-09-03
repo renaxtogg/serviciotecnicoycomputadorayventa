@@ -21,9 +21,41 @@ npm test          # pruebas de datos + render (104 verificaciones)
 
 ---
 
-## Deploy en Cloudflare Pages
+## Deploy en Cloudflare
 
-En el dashboard de Cloudflare → **Workers & Pages → Create → Pages → Connect to Git**, elegí este repositorio y configurá:
+El proyecto ya trae `wrangler.jsonc`, así que sirve para las dos formas que ofrece el dashboard.
+
+### Opción A — Workers (es la que propone Cloudflare hoy)
+
+**Workers & Pages → Create → Connect to Git**, elegís el repositorio y completás:
+
+| Campo | Valor |
+|---|---|
+| Project name | `serviciotecnicoycomputadorayventa` |
+| **Build command** | `npm run build` |
+| **Deploy command** | `npx wrangler deploy` |
+
+Eso es todo: sin variables de entorno ni secretos, la demo no llama a ninguna API.
+Queda publicada en `https://<project-name>.<tu-subdominio>.workers.dev`.
+
+El resto lo define `wrangler.jsonc`:
+
+```jsonc
+{
+  "name": "serviciotecnicoycomputadorayventa",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
+```
+
+`not_found_handling: "single-page-application"` es lo que hace que `/panel/ordenes` o
+`/seguimiento` funcionen al recargar o al entrar directo por URL.
+
+### Opción B — Pages
+
+Si entrás por el flujo clásico de Pages:
 
 | Campo | Valor |
 |---|---|
@@ -32,15 +64,14 @@ En el dashboard de Cloudflare → **Workers & Pages → Create → Pages → Con
 | Build output directory | `dist` |
 | Node version | `20` o superior (variable `NODE_VERSION`) |
 
-No hacen falta variables de entorno ni secretos: la demo no llama a ninguna API.
+Ahí el ruteo lo resuelve `public/_redirects` (`/* /index.html 200`), que también está incluido.
 
-Ya vienen incluidos en `public/`:
+> Para subir el build a mano: `npm run build` y arrastrá la carpeta `dist` al dashboard.
 
-- **`_redirects`** — `/* /index.html 200`, necesario para que rutas como `/panel/ordenes` o `/seguimiento` funcionen al recargar o al entrar directo.
+Otros archivos de `public/` que viajan con el sitio:
+
 - **`_headers`** — caché inmutable para `/assets/*` y cabeceras de seguridad básicas.
 - **`robots.txt`** y **`sitemap.xml`** — el panel queda excluido de la indexación.
-
-> Si preferís subir el build a mano: `npm run build` y arrastrá la carpeta `dist` a Cloudflare Pages (Direct Upload).
 
 ---
 
