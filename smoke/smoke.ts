@@ -20,6 +20,18 @@ const finite = (n: number) => typeof n === 'number' && Number.isFinite(n)
 
 const db = createSeedDB()
 
+console.log()
+console.log('[0] Volumen del set de datos')
+console.log(
+  `  ${db.customers.length} clientes (${db.customers.filter((c) => c.kind === 'empresa').length} empresas) · ` +
+    `${db.orders.length} órdenes (${db.orders.filter(isOpen).length} abiertas) · ` +
+    `${db.products.length} productos (${db.products.filter((p) => p.published).length} publicados en la web)`,
+)
+console.log(
+  `  ${db.sales.length} ventas · ${db.cash.length} movimientos de caja · ${db.services.length} servicios · ` +
+    `${db.staff.length} personas en el equipo · ${db.requests.length} solicitudes web`,
+)
+
 console.log('\n[1] Generación de datos')
 check('clientes generados', db.customers.length >= 30, db.customers.length)
 check('órdenes generadas', db.orders.length >= 40, db.orders.length)
