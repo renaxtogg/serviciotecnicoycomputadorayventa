@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="g" cx="80%" cy="0%" r="90%">
+      <stop offset="0%" stop-color="#1B4DFF" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#0A1633" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0A1633"/>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <circle cx="1010" cy="150" r="62" fill="none" stroke="#1B4DFF" stroke-width="12"/>
+  <ellipse cx="1010" cy="150" rx="115" ry="38" fill="none" stroke="#12B981" stroke-width="9" transform="rotate(-22 1010 150)"/>
+  <text x="90" y="300" font-family="Segoe UI, sans-serif" font-size="76" font-weight="800" fill="#fff">Planet Service</text>
+  <text x="90" y="368" font-family="Segoe UI, sans-serif" font-size="34" fill="#B9CDFF">Servicio técnico de celulares y computadoras</text>
+  <text x="90" y="470" font-family="Segoe UI, sans-serif" font-size="27" fill="#12B981">Diagnóstico gratis · Garantía 90 días · Seguimiento online</text>
+  <text x="90" y="530" font-family="Segoe UI, sans-serif" font-size="25" fill="#8FA3CC">Asunción, Paraguay</text>
+</svg>

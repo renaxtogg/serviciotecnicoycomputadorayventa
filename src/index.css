@@ -1,0 +1,230 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   DESIGN TOKENS
+   Los valores de marca (--brand-*) se inyectan en runtime desde
+   src/config/brand.ts → src/lib/theme.ts. Aquí van los fallbacks + el resto
+   del sistema (superficies, texto, bordes, radios, sombras).
+   ========================================================================== */
+:root {
+  /* Marca (sobreescritos por theme.ts) */
+  --brand-primary: #1b4dff;
+  --brand-primary-dark: #123ac7;
+  --brand-secondary: #0a1633;
+  --brand-accent: #12b981;
+  --brand-warning: #f59e0b;
+  --brand-danger: #e11d48;
+  --brand-whatsapp: #25d366;
+  --font-brand-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-brand-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Series de graficos: derivadas de la marca; el verde se oscurece para
+     superar 3:1 de contraste sobre la superficie (validado con Delta-E CVD). */
+  --chart-1: var(--brand-primary);
+  --chart-2: color-mix(in srgb, var(--brand-accent) 74%, #04412d);
+  --chart-grid: color-mix(in srgb, var(--border-strong) 55%, transparent);
+
+  /* Superficies */
+  --surface-app: #f5f7fb;
+  --surface-card: #ffffff;
+  --surface-muted: #f0f3f9;
+  --surface-inverse: var(--brand-secondary);
+
+  /* Texto */
+  --text-strong: #0d1b3e;
+  --text-body: #38445e;
+  --text-muted: #6b7793;
+  --text-onbrand: #ffffff;
+
+  /* Bordes */
+  --border-subtle: #e6eaf2;
+  --border-strong: #d3daea;
+
+  /* Radios */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  /* Sombras */
+  --shadow-xs: 0 1px 2px rgb(13 27 62 / 0.06);
+  --shadow-sm: 0 1px 3px rgb(13 27 62 / 0.07), 0 1px 2px rgb(13 27 62 / 0.04);
+  --shadow-md: 0 6px 20px -6px rgb(13 27 62 / 0.13), 0 2px 6px rgb(13 27 62 / 0.05);
+  --shadow-lg: 0 18px 45px -14px rgb(13 27 62 / 0.22);
+
+  --header-h: 72px;
+}
+
+@theme inline {
+  --color-brand: var(--brand-primary);
+  --color-brand-dark: var(--brand-primary-dark);
+  --color-ink: var(--brand-secondary);
+  --color-accent: var(--brand-accent);
+  --color-warn: var(--brand-warning);
+  --color-danger: var(--brand-danger);
+  --color-wa: var(--brand-whatsapp);
+
+  --color-app: var(--surface-app);
+  --color-card: var(--surface-card);
+  --color-muted: var(--surface-muted);
+
+  --color-strong: var(--text-strong);
+  --color-body: var(--text-body);
+  --color-dim: var(--text-muted);
+
+  --color-line: var(--border-subtle);
+  --color-line-strong: var(--border-strong);
+
+  --font-display: var(--font-brand-display);
+  --font-sans: var(--font-brand-body);
+
+  --radius-card: var(--radius-md);
+  --radius-pill: 999px;
+
+  --shadow-card: var(--shadow-sm);
+  --shadow-pop: var(--shadow-md);
+  --shadow-float: var(--shadow-lg);
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+* {
+  border-color: var(--border-subtle);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--surface-app);
+  color: var(--text-body);
+  font-family: var(--font-brand-body);
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-brand-display);
+  color: var(--text-strong);
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+p { text-wrap: pretty; }
+
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--brand-primary) 22%, transparent);
+  color: var(--text-strong);
+}
+
+/* Scrollbars discretas (panel) */
+.thin-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.thin-scroll::-webkit-scrollbar-track { background: transparent; }
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 999px;
+}
+.thin-scroll::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ==========================================================================
+   UTILIDADES DE COMPOSICIÓN
+   ========================================================================== */
+@utility container-x {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 1200px;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) { padding-inline: 2rem; }
+}
+
+@utility surface {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+@utility hairline {
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Fondo decorativo del hero: malla suave, sin gradientes ruidosos */
+.hero-mesh {
+  background:
+    radial-gradient(60rem 34rem at 78% -10%, color-mix(in srgb, var(--brand-primary) 26%, transparent), transparent 62%),
+    radial-gradient(40rem 26rem at 6% 8%, color-mix(in srgb, var(--brand-accent) 16%, transparent), transparent 60%),
+    var(--brand-secondary);
+}
+
+.grid-lines {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* ==========================================================================
+   ANIMACIONES (sutiles, con respeto por prefers-reduced-motion)
+   ========================================================================== */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in { from { opacity: 0 } to { opacity: 1 } }
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: none; }
+}
+@keyframes shimmer {
+  from { background-position: 200% 0 }
+  to { background-position: -200% 0 }
+}
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand-accent) 45%, transparent); }
+  70% { box-shadow: 0 0 0 12px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+.anim-fade-up { animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-fade-in { animation: fade-in 0.35s ease both; }
+.anim-pop { animation: pop-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-slide-right { animation: slide-in-right 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-ring { animation: pulse-ring 2.4s ease-out infinite; }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--surface-muted) 25%, #e8ecf5 50%, var(--surface-muted) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.3s linear infinite;
+  border-radius: var(--radius-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Impresión: comprobantes / órdenes */
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; }
+}
