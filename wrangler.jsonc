@@ -4,7 +4,9 @@
   // No hay código de servidor: la demo es 100% cliente + localStorage.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "serviciotecnicoycomputadorayventa",
-  "compatibility_date": "2026-09-03",
+  "compatibility_date": "2025-11-01",
+  // Publica en <name>.<subdominio>.workers.dev
+  "workers_dev": true,
   "assets": {
     "directory": "./dist",
     // Devuelve index.html en cualquier ruta desconocida para que /panel/ordenes,
