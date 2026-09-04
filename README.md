@@ -64,13 +64,21 @@ Si entrás por el flujo clásico de Pages:
 | Build output directory | `dist` |
 | Node version | `20` o superior (variable `NODE_VERSION`) |
 
-Ahí el ruteo lo resuelve `public/_redirects` (`/* /index.html 200`), que también está incluido.
+Pages resuelve el ruteo SPA con un archivo `_redirects`, que **no está en el repo a propósito**:
+la API de Workers rechaza su regla de rewrite (`error 100324: infinite loop detected`) y rompe el deploy
+de la Opción A. Si vas por Pages, creá `public/_redirects` con una línea:
+
+```
+/*  /index.html  200
+```
+
+En Workers no hace falta: lo cubre `not_found_handling`.
 
 > Para subir el build a mano: `npm run build` y arrastrá la carpeta `dist` al dashboard.
 
 Otros archivos de `public/` que viajan con el sitio:
 
-- **`_headers`** — caché inmutable para `/assets/*` y cabeceras de seguridad básicas.
+- **`_headers`** — caché inmutable para `/assets/*` y cabeceras de seguridad básicas (funciona en las dos opciones).
 - **`robots.txt`** y **`sitemap.xml`** — el panel queda excluido de la indexación.
 
 ---
